@@ -1,0 +1,120 @@
+index.html (no change needed – just keep the placeholders for the script and style)
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+      <h1 class="title">Hello World! </h1>
+      <p id="currentTime"></p>
+
+      <!-- New elements for the DOM‑interaction part -->
+      <button id="toggleBtn">Toggle Message</button>
+      <p id="toggleMsg" class="hidden">You toggled me!</p>
+
+      <ul id="numberList"></ul>
+
+      <script src="script.js"></script>
+  </body>
+</html>
+styles.css (optional – just a tiny helper class)
+body{
+  padding: 25px;
+}
+.title {
+  color: #5C6AC4;
+}
+
+/* Helper class for Part 4 */
+.hidden { display: none; }
+script.js
+/* -------------------------------------------------
+   Part 1 – Variables, Data Types, Operators, Conditionals
+   ------------------------------------------------- */
+
+// Primitive variables
+let userName = "Visitor";               // string
+let age = 25;                           // number
+let isMember = true;                    // boolean
+
+// Simple calculation
+let discount = isMember ? 0.2 : 0;      // ternary operator
+
+// Conditional output
+if (age >= 18) {
+  console.log(`${userName} is an adult. Discount: ${discount * 100}%`);
+} else {
+  console.log(`${userName} is a minor. No discount.`);
+}
+
+/* -------------------------------------------------
+   Part 2 – Custom Functions (reusable logic)
+   ------------------------------------------------- */
+
+/**
+ * Returns a greeting string based on the provided name.
+ * @param {string} name
+ * @returns {string}
+ */
+function greet(name) {
+  return `👋 Hello, ${name}!`;
+}
+
+/**
+ * Calculates the sum of numbers in an array.
+ * @param {number[]} arr
+ * @returns {number}
+ */
+function sumArray(arr) {
+  let total = 0;
+  for (let n of arr) total += n;
+  return total;
+}
+
+/* Use the functions */
+console.log(greet(userName));
+console.log("Sum of 1‑5 =", sumArray([1, 2, 3, 4, 5]));
+
+/* -------------------------------------------------
+   Part 3 – Loops (two examples)
+   ------------------------------------------------- */
+
+// Example 1: for‑loop – generate a list of numbers 1‑10
+const numberList = document.getElementById('numberList');
+for (let i = 1; i <= 10; i++) {
+  const li = document.createElement('li');
+  li.textContent = `Item ${i}`;
+  numberList.appendChild(li);
+}
+
+// Example 2: while‑loop – countdown from 5 to 1 (logged to console)
+let count = 5;
+while (count > 0) {
+  console.log(`Countdown: ${count}`);
+  count--;
+}
+
+/* -------------------------------------------------
+   Part 4 – DOM Interactions (three examples)
+   ------------------------------------------------- */
+
+// 1️⃣ Show current UTC time (already present, kept for completeness)
+function showTime() {
+  document.getElementById('currentTime').innerHTML = new Date().toUTCString();
+}
+showTime();
+setInterval(showTime, 1000);
+
+// 2️⃣ Toggle a message when a button is clicked
+const toggleBtn = document.getElementById('toggleBtn');
+const toggleMsg = document.getElementById('toggleMsg');
+
+toggleBtn.addEventListener('click', () => {
+  toggleMsg.classList.toggle('hidden');
+});
+
+// 3️⃣ Change the heading colour on mouseover / mouseout
+const title = document.querySelector('.title');
+title.addEventListener('mouseenter', () => title.style.color = '#FF6F61');
+title.addEventListener('mouseleave', () => title.style.color = '#5C6AC4');
